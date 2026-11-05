@@ -15,8 +15,8 @@ Developer Tooling & Host Tools
 ## Links
 * Code (Apache-2.0): https://github.com/seunghyeon1004/pathfinder-qnx   (make public before submitting)
 * Demo video (YouTube, public, 1:50): TODO paste the link returned by the uploader (links.txt `qnx:`)
-* Codelab / tutorial (Best Codelab / Tutorial bonus): https://github.com/seunghyeon1004/pathfinder-qnx/blob/main/docs/CODELAB.md
-* Build and run instructions: https://github.com/seunghyeon1004/pathfinder-qnx/blob/main/docs/RUN.md
+* Codelab / tutorial (Best Codelab / Tutorial bonus): https://github.com/seunghyeon1004/pathfinder-qnx/blob/master/docs/CODELAB.md
+* Build and run instructions: https://github.com/seunghyeon1004/pathfinder-qnx/blob/master/docs/RUN.md
 
 ## Text description (paste into "What it does")
 In 1997 the Mars Pathfinder lander kept resetting because a low-priority task held a lock that a high-priority task needed, while a medium-priority task kept the CPU. Engineers needed days to find it in a trace. Pathfinder finds it in seconds.
