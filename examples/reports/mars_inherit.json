@@ -1,0 +1,29 @@
+{
+ "meta": {
+  "title": "mars_inherit",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "mars_inherit.kev",
+  "cpus": 4,
+  "events": 88828,
+  "args": "tracelogger -w -b 256 -k 16 -s 6 -f mars_inherit.kev",
+  "w0": 1023.49,
+  "w1": 4107.554
+ },
+ "findings": [
+  {
+   "id": "F1",
+   "kind": "priority_inheritance",
+   "severity": "info",
+   "title": "Priority inheritance working: meteo raised from 10 to 30 while bus_mgr waited",
+   "t0_ms": 3083.7179743795036,
+   "t1_ms": 3138.5908726981584,
+   "evidence": [
+    15861
+   ],
+   "root_cause": "bus_mgr waited up to 55 ms for a lock held by meteo, but the kernel raised meteo from priority 10 to 30 for the duration (events #15861), so no medium-priority thread could delay it. This is the desired behaviour, shown as evidence that the fix works.",
+   "fix": "None needed. Keep critical sections short; the wait of 55 ms is bounded by the owner's critical-section length.",
+   "causes": []
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "meta": {
+  "title": "starve_fix",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "starve_fix.kev",
+  "cpus": 4,
+  "events": 25256,
+  "args": "tracelogger -w -b 256 -k 16 -s 6 -f starve_fix.kev",
+  "w0": 992.863,
+  "w1": 3022.129
+ },
+ "findings": []
+}

@@ -1,0 +1,6 @@
+target/build/
+__pycache__/
+*.pyc
+.secrets.env
+*.qcow2
+image/

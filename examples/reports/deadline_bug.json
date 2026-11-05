@@ -1,0 +1,46 @@
+{
+ "meta": {
+  "title": "deadline_bug",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "deadline_bug.kev",
+  "cpus": 4,
+  "events": 27578,
+  "args": "tracelogger -w -b 256 -k 16 -s 6 -f deadline_bug.kev",
+  "w0": 997.235,
+  "w1": 3027.111
+ },
+ "findings": [
+  {
+   "id": "F1",
+   "kind": "deadline_miss",
+   "severity": "critical",
+   "title": "Deadline misses: control missed 5 of 199 jobs (period 10 ms, worst release-to-completion 18 ms)",
+   "t0_ms": 2724.7508006405124,
+   "t1_ms": 2743.1124899919937,
+   "evidence": [
+    15743,
+    15859
+   ],
+   "root_cause": "Task control has a 10 ms period (from its pf_period markers) but 5 of 199 jobs finished more than one period after their release, worst 18 ms (job 170 started -0 ms late, events #15743, #15859). The misses overlap F2 (Priority inheritance working), which is the cause.",
+   "fix": "Fix the upstream cause first (see the linked finding). If the job legitimately needs more time, raise the period or shorten the work.",
+   "causes": []
+  },
+  {
+   "id": "F2",
+   "kind": "priority_inheritance",
+   "severity": "warning",
+   "title": "Long critical section: control waited up to 16 ms for a lock held by logger (inheritance worked, no inversion) and missed its deadline",
+   "t0_ms": 2726.142914331465,
+   "t1_ms": 2742.1257005604484,
+   "evidence": [
+    15800
+   ],
+   "root_cause": "control waited up to 16 ms for a lock held by logger, but the kernel raised logger from priority 10 to 30 for the duration (events #15800), so no medium-priority thread could delay it. This is the desired behaviour, shown as evidence that the fix works.",
+   "fix": "Inheritance did its job (no medium-priority thread interfered) but the wait itself, 16 ms, is longer than the waiter's deadline budget. Shorten the critical section: copy the data under the lock and do the slow work (formatting, I/O) outside it.",
+   "causes": [
+    "F1"
+   ]
+  }
+ ]
+}

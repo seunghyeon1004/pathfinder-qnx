@@ -1,0 +1,32 @@
+{
+ "meta": {
+  "title": "ipc_deadlock_bug",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "ipc_deadlock_bug.kev",
+  "cpus": 4,
+  "events": 32603,
+  "args": "tracelogger -w -b 256 -k 16 -s 8 -f ipc_deadlock_bug.kev",
+  "w0": 1014.454,
+  "w1": 2368.264
+ },
+ "findings": [
+  {
+   "id": "F1",
+   "kind": "ipc_deadlock",
+   "severity": "critical",
+   "title": "IPC deadlock: ping_srv -> pong_srv -> ping_srv (2 threads in a wait-for cycle, 2 more blocked behind it)",
+   "t0_ms": 1141.326060848679,
+   "t1_ms": 2347.0706565252203,
+   "evidence": [
+    7396,
+    7397,
+    7398,
+    7399
+   ],
+   "root_cause": "Threads ping_srv (waiting to send, priority 20); pong_srv (waiting to send, priority 20) are blocked on each other in a cycle: each is inside a message handler and made a blocking MsgSend() to a channel whose only server thread is itself blocked, so none of them can reach MsgReceive() again. Clients blocked behind the cycle: client1, client2. They stayed blocked for 1206 ms in this trace. Evidence: events #7396, #7397, #7398, #7399.",
+   "fix": "Never make a blocking MsgSend() to another server from inside a handler while the original client is still waiting for a reply. Either (1) reply to the client first and then notify the peer with a pulse (MsgSendPulse, never blocks), (2) hand the nested call to a worker thread, (3) impose a global call order between servers so cycles cannot form, or (4) at minimum arm TimerTimeout() on the nested call and handle ETIMEDOUT.",
+   "causes": []
+  }
+ ]
+}

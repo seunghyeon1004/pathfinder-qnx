@@ -1,0 +1,14 @@
+{
+ "meta": {
+  "title": "ipc_deadlock_fix",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "ipc_deadlock_fix.kev",
+  "cpus": 4,
+  "events": 32695,
+  "args": "tracelogger -w -b 256 -k 16 -s 8 -f ipc_deadlock_fix.kev",
+  "w0": 1014.346,
+  "w1": 1158.051
+ },
+ "findings": []
+}

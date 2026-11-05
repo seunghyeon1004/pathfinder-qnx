@@ -1,0 +1,46 @@
+{
+ "meta": {
+  "title": "starve_bug",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "starve_bug.kev",
+  "cpus": 4,
+  "events": 26884,
+  "args": "tracelogger -w -b 256 -k 16 -s 6 -f starve_bug.kev",
+  "w0": 1027.366,
+  "w1": 3056.004
+ },
+ "findings": [
+  {
+   "id": "F1",
+   "kind": "deadline_miss",
+   "severity": "critical",
+   "title": "Deadline misses: ctrl missed 39 of 98 jobs (period 20 ms, worst release-to-completion 141 ms)",
+   "t0_ms": 2477.942854283427,
+   "t1_ms": 2618.8580864691753,
+   "evidence": [
+    14313,
+    14314
+   ],
+   "root_cause": "Task ctrl has a 20 ms period (from its pf_period markers) but 39 of 98 jobs finished more than one period after their release, worst 141 ms (job 71 started 138 ms late, events #14313, #14314). The misses overlap F2 (CPU starvation), which is the cause.",
+   "fix": "Fix the upstream cause first (see the linked finding). If the job legitimately needs more time, raise the period or shorten the work.",
+   "causes": []
+  },
+  {
+   "id": "F2",
+   "kind": "starvation",
+   "severity": "critical",
+   "title": "CPU starvation: ctrl (prio 20) kept off the CPU up to 140 ms by hog (prio 40), 5 times",
+   "t0_ms": 1274.548638911129,
+   "t1_ms": 1414.9079263410729,
+   "evidence": [
+    8352
+   ],
+   "root_cause": "ctrl (priority 20) was ready to run but waited up to 140 ms because hog (priority 40) kept the CPU, 5 times. With fixed-priority scheduling this is expected whenever a higher-priority thread is busy; it is a problem only if ctrl has a deadline.",
+   "fix": "Bound the high-priority thread's CPU burst (sleep/yield or move work to a lower priority), use sporadic scheduling (SCHED_SPORADIC), or adaptive partitioning to guarantee a CPU budget.",
+   "causes": [
+    "F1"
+   ]
+  }
+ ]
+}

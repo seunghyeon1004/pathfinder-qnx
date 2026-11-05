@@ -1,0 +1,14 @@
+{
+ "meta": {
+  "title": "deadline_fix",
+  "sys": "QNX 8.0.0 x86pc",
+  "node": "qnxqemu",
+  "file": "deadline_fix.kev",
+  "cpus": 4,
+  "events": 28491,
+  "args": "tracelogger -w -b 256 -k 16 -s 6 -f deadline_fix.kev",
+  "w0": 1012.254,
+  "w1": 3040.103
+ },
+ "findings": []
+}
