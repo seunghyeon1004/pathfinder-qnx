@@ -14,7 +14,8 @@ Developer Tooling & Host Tools
 
 ## Links
 * Code (Apache-2.0): https://github.com/seunghyeon1004/pathfinder-qnx   (make public before submitting)
-* Demo video (YouTube, public, 1:50): TODO paste the link returned by the uploader (links.txt `qnx:`)
+* Demo video (YouTube, public, 1:50): https://youtu.be/BSZ6h-TZpr0
+* Devpost project (submitted 2026-11-05, editable until the deadline): https://devpost.com/software/pathfinder-06zjis
 * Codelab / tutorial (Best Codelab / Tutorial bonus): https://github.com/seunghyeon1004/pathfinder-qnx/blob/master/docs/CODELAB.md
 * Build and run instructions: https://github.com/seunghyeon1004/pathfinder-qnx/blob/master/docs/RUN.md
 
