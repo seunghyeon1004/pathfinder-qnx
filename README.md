@@ -89,7 +89,7 @@ target/   mars.c ipc_deadlock.c deadline.c starve.c pf_mark.h pf-capture.sh Make
 host/     pathfinder/ (parse, model, detect, explain, render, llm, cli)  tests/
 scripts/  qnx-vm.sh pf-run.sh e2e.sh docker-make.sh traceprinter.sh
 examples/ traces/ (real .kev + traceprinter dumps)  reports/ (generated HTML/MD/JSON)
-docs/     RUN.md  Dockerfile.sdp-env
+docs/     RUN.md  CODELAB.md  SUBMISSION.md  codelab/inversion.c  Dockerfile.sdp-env
 ```
 
 ## AI disclosure and license
